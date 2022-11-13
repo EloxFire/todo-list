@@ -1,0 +1,48 @@
+@import './app.scss';
+
+#home {
+  height: 100vh;
+  background-color: $light_purple;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .content {
+    // background-color: $medium_purple;
+    width: 80%;
+    height: 93vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 60%;
+      overflow: auto;
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 40%;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: $white;
+      font-weight: 900;
+      font-family: 'Work Sans';
+      text-shadow: 7px 6px 0 $dark_purple;
+    }
+
+    .section-description {
+      font-size: 1.2rem;
+      color: $white;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+  }
+}
