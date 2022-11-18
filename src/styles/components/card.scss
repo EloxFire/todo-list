@@ -3,12 +3,12 @@
 .card {
   display: flex;
   flex-direction: column;
-  color: $white;
-  // background-color: $background;
+  color: $black;
+  background-color: $background;
   margin-bottom: 2rem;
   border-radius: 20px;
   padding: 1rem;
-  border: 2px solid $white;
+  // border: 2px solid $black;
 
   .card-header {
     margin-bottom: 0.5rem;
@@ -32,6 +32,7 @@
     border-radius: 10px;
     padding: 0.5rem;
     font-size: .9rem;
+    margin-left: .5rem;
     // margin-top: 1rem;
   }
 
@@ -40,13 +41,16 @@
     font-weight: 600;
   }
 
+  .card-description {
+    white-space: pre-line;
+  }
+
   .line {
     display: flex;
     flex-direction: row;
   }
 
   .card-small {
-    font-size: .8rem;
-    font-weight: 300;
+    font-size: 1rem;
   }
 }

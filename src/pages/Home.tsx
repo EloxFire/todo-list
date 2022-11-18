@@ -58,7 +58,7 @@ const Home: React.FC = () => {
       <Header />
       <div className="content">
         <div className="left">
-          <p className="section-title">Votre ToDoList</p>
+          <p className="section-title">Vos todos</p>
           <div className="todos-container">
             {
               todos.length > 0 ?
@@ -80,7 +80,7 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div className="right">
-          <p className="section-title">Ajouter un ToDo</p>
+          <p className="section-title">Ajouter une tâche</p>
 
           <div className="add-form-container">
             <form className="add-form" onSubmit={handleFormSubmit}>

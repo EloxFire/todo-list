@@ -26,7 +26,16 @@ const Card: React.FC<CardProps> = (props) => {
         <p className="card-description">{description}</p>
       </div>
       <div className="card-footer">
-        <p className="card-tags">{tags}</p>
+        {
+          tags !== '' ?
+            tags.split(',').map((tag, index) => {
+              return (
+                <p className="card-tags" key={index}>{tag}</p>
+              )
+            })
+            :
+            <p className="card-tags">Aucun tag défini</p>
+        }
       </div>
     </div>
   )

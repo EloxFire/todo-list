@@ -7,9 +7,9 @@ import { colors } from '../scripts/utils'
 const Header: React.FC = () => {
   return (
     <div className="header">
-      <h1 className="title">ToDoList</h1>
+      <h1 className="title">TaskerPro</h1>
       <a className="link" href="/">Main website</a>
-      <a className="link" href="/">Github <IconContext.Provider value={{ color: colors.white }}><FiExternalLink /></IconContext.Provider></a>
+      <a className="link" href="/">Github <IconContext.Provider value={{ color: colors.black }}><FiExternalLink /></IconContext.Provider></a>
     </div>
   )
 }

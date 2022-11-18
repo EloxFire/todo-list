@@ -1,8 +1,9 @@
 @import './app.scss';
 
 #home {
+  padding-top: 10vh;
   height: 100vh;
-  background-color: $black;
+  background-color: $background;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,8 +11,9 @@
   .content {
     // background-color: $medium_purple;
     width: 80%;
-    height: 93vh;
-    padding: 2rem;
+    height: 90vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -21,6 +23,9 @@
       flex-direction: column;
       height: 100%;
       width: 55%;
+      background-color: $white;
+      border-radius: 40px;
+      padding: 1.2rem;
 
       .todos-container {
         display: flex;
@@ -32,7 +37,7 @@
         .no-todos {
           font-size: 1.2rem;
           font-weight: 600;
-          color: $white;
+          color: $black;
         }
       }
     }
@@ -43,13 +48,15 @@
       flex-direction: column;
       height: 100%;
       width: 40%;
+      background-color: $white;
+      border-radius: 40px;
+      padding: 1.2rem;
     }
 
     .section-title {
       font-size: 2rem;
-      color: $red;
-      font-weight: 900;
-      font-family: 'Work Sans';
+      color: $black;
+      font-weight: 300;
       // text-shadow: 3px 2px 0 $red;
       margin-bottom: 5vh;
     }
