@@ -16,7 +16,7 @@ const CustomInputGroup: React.FC<CustomInputGroupProps> = (props) => {
   return (
     <div className="input-group">
       <label htmlFor={`input-${type}-${label}`}>{label}</label>
-      <input onChange={() => onChange()} value={value} id={`input-${type}-${label}`} type={type} placeholder={placeholder} />
+      <input onChange={() => onChange} value={value} id={`input-${type}-${label}`} type={type} placeholder={placeholder} />
     </div>
   )
 }

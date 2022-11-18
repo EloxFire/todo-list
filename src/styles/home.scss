@@ -2,7 +2,7 @@
 
 #home {
   height: 100vh;
-  background-color: $light_purple;
+  background-color: $black;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,14 +14,29 @@
     padding: 2rem;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     .left {
       display: flex;
       flex-direction: column;
       height: 100%;
-      width: 60%;
-      overflow: auto;
+      width: 55%;
+
+      .todos-container {
+        display: flex;
+        flex-direction: column;
+        height: 90vh;
+        width: 100%;
+        overflow: auto;
+
+        .no-todos {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: $white;
+        }
+      }
     }
+
 
     .right {
       display: flex;
@@ -32,10 +47,11 @@
 
     .section-title {
       font-size: 2rem;
-      color: $white;
+      color: $red;
       font-weight: 900;
       font-family: 'Work Sans';
-      text-shadow: 7px 6px 0 $dark_purple;
+      // text-shadow: 3px 2px 0 $red;
+      margin-bottom: 5vh;
     }
 
     .section-description {
