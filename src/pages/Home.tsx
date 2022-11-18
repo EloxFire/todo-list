@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react'
 import Card from '../components/Card'
 import Header from '../components/Header'
+import { v4 as uuidv4 } from 'uuid'
 import '../styles/home.scss'
 
-interface TodoType {
+export type TodoType = {
+  id: string,
   title: string,
   description: string,
   tags: string,
   created_at: string,
   updated_at: string,
+  order: number
 }
 
 const Home: React.FC = () => {
@@ -23,7 +26,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     const data = localStorage.getItem('todos')
     if (data) {
-      setTodos(JSON.parse(data))
+      // Sort todos by id
+      const temp = JSON.parse(data).sort((a: TodoType, b: TodoType) => a.order > b.order ? 1 : -1)
+      setTodos(temp)
     }
   }, [refresh])
 
@@ -36,21 +41,70 @@ const Home: React.FC = () => {
     }
 
     const newTodo = {
+      id: uuidv4(),
       title: title,
       description: description,
       tags: tags,
       created_at: new Date().toString(),
       updated_at: new Date().toString(),
+      order: todos.length
     }
 
     let temp = todos
     temp?.push(newTodo)
     setTodos(temp)
     localStorage.setItem('todos', JSON.stringify(temp))
+
     setRefresh(!refresh)
     setTitle('')
     setDescription('')
     setTags('')
+  }
+
+  const handleDelete = (id: string) => {
+    const temp = todos.filter(todo => todo.id !== id)
+    setTodos(temp)
+    localStorage.setItem('todos', JSON.stringify(temp))
+    setRefresh(!refresh)
+  }
+
+  const handleEdit = (todo: TodoType) => {
+    const temp = todos.map(t => {
+      if (t.id === todo.id) {
+        return todo
+      }
+      return t
+    })
+    setTodos(temp)
+    localStorage.setItem('todos', JSON.stringify(temp))
+    setRefresh(!refresh)
+  }
+
+  const handleOrder = (id: string, direction: string) => {
+    console.log("Reordering");
+    // Update todo order property based on direction
+    const temp = todos
+    temp.map(t => {
+      if (t.id === id) {
+        switch (direction) {
+          case "up":
+            t.order += 1
+            console.log("Adding to ", t.id);
+            break;
+          case "down":
+            t.order -= 1
+            console.log("Removing to ", t.id);
+            break;
+
+          default:
+            break;
+        }
+      }
+      return t
+    })
+    setTodos(temp)
+    localStorage.setItem('todos', JSON.stringify(temp))
+    setRefresh(!refresh)
   }
 
   return (
@@ -62,15 +116,20 @@ const Home: React.FC = () => {
           <div className="todos-container">
             {
               todos.length > 0 ?
-                todos.map((todo: any, index: number) => {
+                todos.map((todo: TodoType, index: number) => {
                   return (
                     <Card
                       key={`todo-${index}`}
+                      id={todo.id}
                       title={todo.title}
                       description={todo.description}
                       tags={todo.tags}
                       created_at={todo.created_at}
                       updated_at={todo.updated_at}
+                      order={todo.order}
+                      onDelete={handleDelete}
+                      onEdit={handleEdit}
+                      onOrder={handleOrder}
                     />
                   )
                 })
