@@ -94,6 +94,7 @@ const Card: React.FC<CardProps> = (props) => {
               :
               <p className="card-tags">Aucun tag défini</p>
           }
+          {/* <p>{order}</p> */}
         </div>
       </div>
     </>

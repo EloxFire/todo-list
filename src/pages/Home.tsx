@@ -3,6 +3,7 @@ import Card from '../components/Card'
 import Header from '../components/Header'
 import { v4 as uuidv4 } from 'uuid'
 import '../styles/home.scss'
+import * as Icon from 'react-icons/fi'
 
 export type TodoType = {
   id: string,
@@ -47,7 +48,7 @@ const Home: React.FC = () => {
       tags: tags,
       created_at: new Date().toString(),
       updated_at: new Date().toString(),
-      order: todos.length
+      order: todos.length + 1
     }
 
     let temp = todos
@@ -82,28 +83,56 @@ const Home: React.FC = () => {
 
   const handleOrder = (id: string, direction: string) => {
     console.log("Reordering");
-    // Update todo order property based on direction
-    const temp = todos
-    temp.map(t => {
-      if (t.id === id) {
-        switch (direction) {
-          case "up":
-            t.order += 1
-            console.log("Adding to ", t.id);
-            break;
-          case "down":
-            t.order -= 1
-            console.log("Removing to ", t.id);
-            break;
-
-          default:
-            break;
+    // Update todos order
+    const temp = todos.map((todo, index) => {
+      if (todo.id === id) {
+        if (direction === 'up') {
+          if (index === 0) {
+            return todo
+          }
+          todo.order = todo.order - 1
+          return todo
+        } else {
+          if (index === todos.length - 1) {
+            return todo
+          }
+          todo.order = todo.order + 1
+          return todo
         }
       }
-      return t
+      return todo
     })
     setTodos(temp)
     localStorage.setItem('todos', JSON.stringify(temp))
+    setRefresh(!refresh)
+  }
+
+  // FilterType : 1 - DateUp, 2 - DateDown, 3 - UpdateUp, 4 - UpdateDown, 5 - TagsUp, 6 - TagsDown
+  const handleFilter = (filterType: number) => {
+    switch (filterType) {
+      case 1:
+        setTodos(todos.sort((a: TodoType, b: TodoType) => a.created_at > b.created_at ? 1 : -1))
+        break;
+      case 2:
+        setTodos(todos.sort((a: TodoType, b: TodoType) => a.created_at < b.created_at ? 1 : -1))
+        break;
+      case 3:
+        setTodos(todos.sort((a: TodoType, b: TodoType) => a.updated_at > b.updated_at ? 1 : -1))
+        break;
+      case 4:
+        setTodos(todos.sort((a: TodoType, b: TodoType) => a.updated_at < b.updated_at ? 1 : -1))
+        break;
+      case 5:
+        setTodos(todos.sort((a: TodoType, b: TodoType) => a.tags.split(',').length > b.tags.split(',').length ? 1 : -1))
+        break;
+      case 6:
+        setTodos(todos.sort((a: TodoType, b: TodoType) => a.tags.split(',').length < b.tags.split(',').length ? 1 : -1))
+        break;
+      default:
+        break;
+    }
+
+    localStorage.setItem('todos', JSON.stringify(todos))
     setRefresh(!refresh)
   }
 
@@ -112,7 +141,24 @@ const Home: React.FC = () => {
       <Header />
       <div className="content">
         <div className="left">
-          <p className="section-title">Vos todos</p>
+          <div className="todos-container-header">
+            <p className="section-title">Vos todos</p>
+            <div className="filters-container">
+              <p>Filtres :</p>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <button className="filter-button" onClick={() => handleFilter(1)}>Création <Icon.FiArrowUp /> </button>
+                  <button className="filter-button" onClick={() => handleFilter(2)}>Création <Icon.FiArrowDown /> </button>
+                  <button className="filter-button" onClick={() => handleFilter(3)}>Modification <Icon.FiArrowUp /> </button>
+                  <button className="filter-button" onClick={() => handleFilter(4)}>Modification <Icon.FiArrowDown /> </button>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginTop: '.5rem' }}>
+                  <button className="filter-button" onClick={() => handleFilter(5)}>Nbr tags <Icon.FiArrowUp /> </button>
+                  <button className="filter-button" onClick={() => handleFilter(6)}>Nbr tags <Icon.FiArrowDown /> </button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="todos-container">
             {
               todos.length > 0 ?
@@ -152,7 +198,7 @@ const Home: React.FC = () => {
                 <textarea onChange={(e) => setDescription(e.target.value)} value={description} placeholder="Entrez une description pour ce Todo" name="description" id="description" rows={10}></textarea>
               </div>
               <div className="form-group">
-                <label htmlFor="tags">Tags <small>(Séparés d'une virgule)</small></label>
+                <label htmlFor="tags">Tags {/*<small>(Séparés d'une virgule)</small>*/}</label>
                 <input onChange={(e) => setTags(e.target.value.replace(' ', ',').toLowerCase().trim())} value={tags} placeholder="tag1,tag2,tag3" type="text" name="tags" id="tags" />
               </div>
               <button className="submit-button" type='submit'>Sauvegarder</button>

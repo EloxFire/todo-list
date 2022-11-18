@@ -27,6 +27,27 @@
       border-radius: 40px;
       padding: 2.5rem;
 
+      .todos-container-header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+        .filters-container{
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
+          width: 20%;
+          // background-color: pink;
+          width: 70%;
+          height: 40px;
+
+          .filter-button{
+            margin-left: 1rem;
+          }
+        }
+      }
+
       .todos-container {
         display: flex;
         flex-direction: column;
